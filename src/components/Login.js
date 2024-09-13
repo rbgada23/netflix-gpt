@@ -3,9 +3,9 @@ import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
 import { auth } from "../utils/firebase";
-import {useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { AVATAR_IMG } from "../utils/constants";
 
 
 const Login = () => {
@@ -14,7 +14,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const toggleSignForm = () => {
@@ -40,7 +39,7 @@ const Login = () => {
             const user = userCredential.user; 
             updateProfile(user,{
               displayName : name?.current?.value,
-              photoURL: "https://avatars.githubusercontent.com/u/32638942?v=4",
+              photoURL: AVATAR_IMG,
             }).then(()=>{
               const {uid,email,displayName,photoURL} = auth.currentUser;
               dispatch(addUser({
@@ -49,7 +48,6 @@ const Login = () => {
                 displayName : displayName,
                 photoURL: photoURL
               }))
-               navigate("/browse");
             })
           
           })
@@ -62,7 +60,6 @@ const Login = () => {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            navigate("/browse");
             // ...
           })
           .catch((error) => {
@@ -77,9 +74,9 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="absolute w-full">
         <img
-          className=""
+          className="w-full"
           src="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_small.jpg"
           srcset="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_small.jpg 1000w, https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_medium.jpg 1500w, https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_large.jpg"
           alt="logo"
@@ -91,7 +88,7 @@ const Login = () => {
         }}
         className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
       >
-        <h1 className="font-bold text-3xl m-2">
+        <h1 className="font-bold text-3xl m-2 ml-0">
           {isSignForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignForm && (
@@ -99,20 +96,20 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Name"
-            className="p-4 m-2 my-4 w-full bg-gray-700"
+            className="p-4 m-2 my-4 w-full bg-gray-700 ml-0"
           />
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email address"
-          className="p-4 m-2 my-4 w-full bg-gray-700"
+          className="p-4 m-2 my-4 w-full bg-gray-700 ml-0"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 m-2 my-4 w-full bg-gray-700"
+          className="p-4 m-2 my-4 w-full bg-gray-700 ml-0"
         />
         <p className="text-red-500 m-2 font-bold text-lg">{errorMsg}</p>
         <button
@@ -122,7 +119,7 @@ const Login = () => {
           {isSignForm ? "Sign In" : "Sign Up"}
         </button>
         <h3
-          className="cursor-pointer p-2 m-2 w-full my-1"
+          className="cursor-pointer p-2 m-2 w-full my-1 ml-0"
           onClick={toggleSignForm}
         >
           {isSignForm
