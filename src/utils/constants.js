@@ -10,4 +10,12 @@ export const API_OPTIONS = {
     }
   };
 
+  export const SUPPORTED_LANGUAGES = [
+    { identifier: "en", name: "English" },
+    { identifier: "hindi", name: "Hindi" },
+    { identifier: "spanish", name: "Spanish" },
+  ];
+  
+  export const BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_small.jpg";
+  
   export const MOVIE_POSTAR_URL = "https://image.tmdb.org/t/p/w200/";
