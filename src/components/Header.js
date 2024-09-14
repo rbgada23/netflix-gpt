@@ -1,32 +1,21 @@
-import React, { useEffect } from "react";
-import { auth } from "../utils/firebase";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
 import { NETFLIX_LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLaguage } from "../utils/configSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const user = useSelector((store) => store.user);
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
-
-  const dispatch = useDispatch();
-
-  const handleLanguageChange = (e) => {
-    dispatch(changeLaguage(e.target.value));
-  };
-
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
       });
@@ -55,19 +44,23 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleGptClick = () => {
-    //Toggle GPT search view
+  const handleGptSearchClick = () => {
+    // Toggle GPT Search
     dispatch(toggleGptSearchView());
   };
 
+  const handleLanguageChange = (e) => {
+    dispatch(changeLaguage(e.target.value));
+  };
+
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-48" alt="Netflix Logo" src={NETFLIX_LOGO} />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
+      <img className="w-44 mx-auto md:mx-0" src={NETFLIX_LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2">
+        <div className="flex p-2 justify-between -mt-4 md:mt-0">
           {showGptSearch && (
             <select
-              className="p-2 m-2 bg-gray-900 text-white rounded-lg"
+              className="p-2 m-2 bg-gray-900 text-white"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -78,23 +71,22 @@ const Header = () => {
             </select>
           )}
           <button
-            className="rounded-lg py-2 px-4 m-2 my-2 bg-purple-800 text-white"
-            onClick={handleGptClick}
+            className="py-2 px-4 mx-4 md:my-2 bg-purple-800 text-white rounded-lg"
+            onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "Home": "GPT search"}
+            {showGptSearch ? "Homepage" : "GPT Search"}
           </button>
-          <img className="p-2 w-12 h-12" src={user?.photoURL} />
-          <button
-            onClick={handleSignOut}
-            className="text-xl font-bold text-white p-2 mb-3"
-          >
-            Sign out
+          <img
+            className="hidden md:block w-12 h-12"
+            alt="usericon"
+            src={user?.photoURL}
+          />
+          <button onClick={handleSignOut} className="font-bold text-white ">
+            (Sign Out)
           </button>
         </div>
       )}
-      {/* <div className="inline-block">Sign In</div> */}
     </div>
   );
 };
-
 export default Header;
