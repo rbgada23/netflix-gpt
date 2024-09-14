@@ -1,23 +1,18 @@
-import React from "react";
-import GptSearchBar from "./GptSearchBar";
-import GptMovieSuggestions from "./GptMovieSuggestions";
 import { BG_URL } from "../utils/constants";
+import GptMovieSuggestions from "./GptMovieSuggestions";
+import GptSearchBar from "./GptSearchBar";
 
-const GptSearch = () => {
+const GPTSearch = () => {
   return (
-    <div>
-      <div className="fixed w-full -z-10">
-        <img
-          className="w-full"
-          src={BG_URL}
-          srcset="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_small.jpg 1000w, https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_medium.jpg 1500w, https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_large.jpg"
-          alt="logo"
-        />
+    <>
+      <div className="fixed -z-10">
+        <img className="h-screen object-cover h-max" src={BG_URL} alt="logo" />
       </div>
-      <GptSearchBar />
-      <GptMovieSuggestions />
-    </div>
+      <div className="">
+        <GptSearchBar />
+        <GptMovieSuggestions />
+      </div>
+    </>
   );
 };
-
-export default GptSearch;
+export default GPTSearch;
