@@ -6,7 +6,7 @@ export const API_OPTIONS = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzE0ZGEzNDIzOTRiYjUxNzc5NWE1N2MzNTBhOTZhZSIsIm5iZiI6MTcyNjIzOTI1MC40MzA0NDIsInN1YiI6IjY2ZTQ1MTdhOTAxM2ZlODcyMjI0MWNjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OJDbKBeDpNlNq3_weETFY0HpEs5TlUwEFrs-a8Zpsaw'
+      Authorization: 'Bearer '+process.env.REACT_APP_TMDB_KEY,
     }
   };
 
@@ -19,3 +19,6 @@ export const API_OPTIONS = {
   export const BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/US-en-20240909-TRIFECTA-perspective_e4cccf9e-e51c-4a90-af6d-001c59af27e7_small.jpg";
   
   export const MOVIE_POSTAR_URL = "https://image.tmdb.org/t/p/w200/";
+
+  //Note : This also should be taken from .env file. As of now GPT APIs are not working.
+  export const OPENAI_KEY = "ab" 
