@@ -12,9 +12,12 @@ import { changeLaguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
+  const dispatch = useDispatch();
+
   const handleLanguageChange = (e) => {
     dispatch(changeLaguage(e.target.value));
   };
@@ -64,7 +67,7 @@ const Header = () => {
         <div className="flex p-2">
           {showGptSearch && (
             <select
-              className="p-2 m-2 bg-gray-900 text-white"
+              className="p-2 m-2 bg-gray-900 text-white rounded-lg"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
